@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                       onClick: () => homeVm.fetchHouseDataFromServer(),
                       buttonText: "Try Again",
                     )
-                  : homeVm.mHouseList.isEmpty
+                  : homeVm.mHouseList.isEmpty || homeVm.isSearch.isTrue
                       ? InfoWidget(
                           title:
                               "Data Not Found!!!\n There is not data found",
@@ -67,6 +67,7 @@ class HomeScreen extends StatelessWidget {
                                   },
                                   suffixIcon: homeVm.isTextFormFieldEmpty.isTrue? Icons.search : Icons.clear,
                                   onChange: homeVm.onTextFormFieldChange,
+                                  onFieldSubmitted: homeVm.onFieldSubmitted,
                                 ),
                               ),
                             ),

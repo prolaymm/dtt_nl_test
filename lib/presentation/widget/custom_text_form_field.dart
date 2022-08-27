@@ -12,6 +12,8 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? suffixIcon;
   final VoidCallback? onSuffixIconClick;
   final Function(String?)? onChange;
+  final Function(String?)? onFieldSubmitted;
+
 
   const CustomTextFormField(
       {Key? key,
@@ -19,7 +21,7 @@ class CustomTextFormField extends StatelessWidget {
       required this.hintText,
       this.suffixIcon,
       this.color,
-      this.label, this.onSuffixIconClick, this.onChange
+      this.label, this.onSuffixIconClick, this.onChange, this.onFieldSubmitted
      })
       : super(key: key);
 
@@ -50,6 +52,8 @@ class CustomTextFormField extends StatelessWidget {
          : const  SizedBox()
       ),
       onChanged: onChange,
+      onFieldSubmitted: onFieldSubmitted,
+      textInputAction: TextInputAction.search,
     );
   }
 }

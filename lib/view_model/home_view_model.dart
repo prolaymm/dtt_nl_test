@@ -15,8 +15,7 @@ class HomeViewModel extends GetxController {
   RxString message = "".obs;
 
   RxBool isTextFormFieldEmpty = true.obs;
-
-
+  RxBool isSearch = false.obs;
 
   @override
   void onInit() {
@@ -25,6 +24,7 @@ class HomeViewModel extends GetxController {
   }
 
   fetchHouseDataFromServer() async {
+    isSearch.value = false;
     isLoading.value = true;
     isError.value = false;
     message.value = "";
@@ -33,7 +33,6 @@ class HomeViewModel extends GetxController {
 
       if (apiResult.statusType == StatusType.eComplete) {
         mHouseList.value = apiResult.data;
-
 
         isError.value = false;
         message.value = "Success";
@@ -50,22 +49,23 @@ class HomeViewModel extends GetxController {
     }
   }
 
-   onTextFormFieldChange(String?value) {
-
-    if(value !=null || value!="") {
+  onTextFormFieldChange(String? value) {
+    if (value != null || value != "") {
       isTextFormFieldEmpty.value = false;
-
     } else {
-
       isTextFormFieldEmpty.value = true;
     }
-
-   }
-   @override
-  void dispose() {
-    // TODO: implement dispose
-     textController.dispose();
-    super.dispose();
   }
 
+  onFieldSubmitted(String? value) {
+    isSearch.value = true;
+    textController.text = "";
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    textController.dispose();
+    super.dispose();
+  }
 }
