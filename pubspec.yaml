@@ -43,6 +43,9 @@ dependencies:
   http: ^0.13.5
   cached_network_image: ^3.2.1
   flutter_svg: ^1.1.4
+  flutter_map: ^2.2.0
+  flutter_map_marker_cluster: ^0.5.4
+  latlong2: ^0.8.1
 
 dev_dependencies:
   flutter_test:

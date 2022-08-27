@@ -30,7 +30,7 @@ class HomeViewModel extends GetxController {
 
       if (apiResult.statusType == StatusType.eComplete) {
         mHouseList.value = apiResult.data;
-        print(apiResult.data);
+
 
         isError.value = false;
         message.value = "Success";

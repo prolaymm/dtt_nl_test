@@ -1,16 +1,14 @@
 import 'package:d_tt_nl_code_test/presentation/widget/text_view.dart';
+import 'package:d_tt_nl_code_test/utils/dimens.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../utils/dimens.dart';
-
 
 class SimpleAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final bool? isBack;
   final bool? isCenterTitle;
 
-  const SimpleAppBar({Key? key, required this.title, this.isBack, this.isCenterTitle})
+  const SimpleAppBar(
+      {Key? key, required this.title, this.isBack, this.isCenterTitle})
       : super(key: key);
 
   @override
@@ -18,11 +16,10 @@ class SimpleAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       title: TextView(
         text: title,
-        fontSize: 20,
+        fontSize: k20Font,
         fontWeight: FontWeight.bold,
       ),
-      centerTitle: isCenterTitle??false,
-
+      centerTitle: isCenterTitle ?? false,
     );
   }
 

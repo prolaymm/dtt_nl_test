@@ -1,9 +1,10 @@
-import 'package:d_tt_nl_code_test/presentation/screen/home_screen/row_icon_text.dart';
+import 'package:d_tt_nl_code_test/presentation/route/app_route_name.dart';
+import 'package:d_tt_nl_code_test/presentation/widget/house_specification_info_with_icon.dart';
+import 'package:d_tt_nl_code_test/presentation/widget/row_icon_text.dart';
 import 'package:d_tt_nl_code_test/presentation/widget/custom_cache_network_image.dart';
 import 'package:d_tt_nl_code_test/presentation/widget/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../../utils/api_route.dart';
 import '../../../utils/dimens.dart';
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
               : homeVm.isError.isTrue
                   ? TextView(text: homeVm.message.value)
                   : homeVm.mHouseList.isEmpty
-                      ? TextView(text: "No House Data")
+                      ? const TextView(text: "No House Data")
                       : Column(
                           children: [
                             const SizedBox(
@@ -53,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                                   itemCount: homeVm.mHouseList.length,
                                   itemBuilder: (_, position) {
                                     return GestureDetector(
-                                      onTap: () {},
+                                      onTap: ()=> Get.toNamed(AppRouteName.rHouseDetail),
                                       child: Container(
                                         height: 110,
                                         margin: const EdgeInsets.only(
@@ -119,9 +120,15 @@ class HomeScreen extends StatelessWidget {
                                                       .hintColor,
                                                   fontSize: k14Font,
                                                 ),
-                                                Spacer(),
+                                                const Spacer(),
                                                 Flexible(
-                                                  child: Row(
+                                                  child: HouseSpecificationInfoWithIcon(bedrooms:homeVm.mHouseList[position].bedrooms,
+                                                  size: homeVm.mHouseList[position].size,
+                                                    bathrooms: homeVm.mHouseList[position].bathrooms,
+                                                    distance: homeVm.mHouseList[position].distance,
+                                                  )
+
+                                                  /*Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .center,
@@ -151,7 +158,7 @@ class HomeScreen extends StatelessWidget {
                                                             "assets/icons/ic_location.svg",
                                                       ),
                                                     ],
-                                                  ),
+                                                  ),*/
                                                 )
                                               ],
                                             ),

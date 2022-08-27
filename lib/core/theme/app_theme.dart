@@ -1,3 +1,5 @@
+// ignore_for_file: use_full_hex_values_for_flutter_colors
+
 import 'package:flutter/material.dart';
 
 import '../../utils/const_color.dart';
@@ -21,8 +23,9 @@ class AppTheme {
         color: Colors.black,
       ),
     ),
+    cardColor: cScaffoldBackground,
     cardTheme: const CardTheme(
-      color: Colors.white,
+      color:cScaffoldBackground,
     ),
     iconTheme: const IconThemeData(
       color: Colors.white54,
@@ -41,7 +44,7 @@ class AppTheme {
     textTheme: const TextTheme(
       labelMedium: TextStyle(color: Color(0xff5A596A)),
       bodyText1: TextStyle(color: Colors.white),
-      bodyText2: TextStyle(color: Color(0xffcc000000)),
+      bodyText2: TextStyle(color: Colors.black),
       headline1: TextStyle(color: cPrimaryColor),
       subtitle1: TextStyle(color: cHintColor),
       caption: TextStyle(color: cPrimaryColor),

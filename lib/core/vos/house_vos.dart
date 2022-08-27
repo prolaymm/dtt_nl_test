@@ -38,6 +38,7 @@ class HouseVo {
   int? latitude;
   int? longitude;
   String? createdDate;
+  double? distance;
 
   factory HouseVo.fromJson(Map<String, dynamic> json) => HouseVo(
         id: json["id"],

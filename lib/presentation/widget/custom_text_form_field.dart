@@ -1,4 +1,4 @@
-import 'package:d_tt_nl_code_test/presentation/widget/text_view.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../utils/dimens.dart';
