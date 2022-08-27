@@ -13,15 +13,16 @@ class RowIconText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+
       width: 50,
-      child: Row(
+          child: Row(
         children: [
 
-          SvgPicture.asset(icon,color: Theme.of(context).hintColor,height: 20,width: 20,),
+          SvgPicture.asset(icon,color: Theme.of(context).hintColor,height: 13,width: 13,),
          const  SizedBox(
-            width: 3,
+            width: 2,
           ),
-          TextView(text: title,color: Theme.of(context).hintColor,fontSize: k12Font,)
+          TextView(text: title,color: Theme.of(context).hintColor,fontSize:10,)
         ],
       ),
     );

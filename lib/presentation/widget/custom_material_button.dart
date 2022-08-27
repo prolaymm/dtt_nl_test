@@ -33,7 +33,7 @@ class CustomMaterialButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius ?? 40),
           side:
-              BorderSide(color: borderColor ?? Theme.of(context).primaryColor)),
+              BorderSide(color: borderColor ?? Colors.transparent)),
       child: TextView(text: title, color: textColor),
     );
   }

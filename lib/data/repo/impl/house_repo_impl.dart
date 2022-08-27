@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:d_tt_nl_code_test/core/services/api_result.dart';
 import 'package:d_tt_nl_code_test/core/services/api_service.dart';
@@ -14,16 +15,22 @@ class HouseRepoImpl extends HouseRepo {
   ///fetch house list from server
   @override
   Future<ApiResult<List<HouseVo>>> getHouseList() async {
+    var rng = Random();
     try {
       dynamic response =
           await _apiService.getData(url: apiHouse, isHeader: true);
-      print(response.body);
 
       if (response.statusCode == 200) {
+
+        List<HouseVo> houseList = houseVoFromJson(response.body);
+        for(int i=0;i<houseList.length;i++) {
+
+          houseList[i].distance = rng.nextInt(100).toDouble();
+        }
         return ApiResult(
             message: "Success",
             statusType: StatusType.eComplete,
-            data:houseVoFromJson(response.body));
+            data:houseList);
       } else {
         Map message = jsonDecode(response.body);
         return ApiResult(

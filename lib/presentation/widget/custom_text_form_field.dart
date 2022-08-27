@@ -1,5 +1,6 @@
-import 'package:d_tt_nl_code_test/presentation/widget/text_view.dart';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utils/dimens.dart';
 
@@ -11,6 +12,8 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? suffixIcon;
   final VoidCallback? onSuffixIconClick;
   final Function(String?)? onChange;
+  final Function(String?)? onFieldSubmitted;
+
 
   const CustomTextFormField(
       {Key? key,
@@ -18,7 +21,7 @@ class CustomTextFormField extends StatelessWidget {
       required this.hintText,
       this.suffixIcon,
       this.color,
-      this.label, this.onSuffixIconClick, this.onChange
+      this.label, this.onSuffixIconClick, this.onChange, this.onFieldSubmitted
      })
       : super(key: key);
 
@@ -42,11 +45,15 @@ class CustomTextFormField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
             borderSide: BorderSide(color: color ?? Colors.transparent)),
-        suffixIcon: suffixIcon!=null? GestureDetector(
-            onTap: onSuffixIconClick,
-            child: Icon(suffixIcon,color: Theme.of(context).colorScheme.onPrimary,size: 30,)) : const  SizedBox()
+        suffixIcon: suffixIcon!=null?
+           GestureDetector(
+              onTap: onSuffixIconClick,
+              child: Icon(suffixIcon,color: Theme.of(context).colorScheme.onPrimary,size: 30,))
+         : const  SizedBox()
       ),
       onChanged: onChange,
+      onFieldSubmitted: onFieldSubmitted,
+      textInputAction: TextInputAction.search,
     );
   }
 }

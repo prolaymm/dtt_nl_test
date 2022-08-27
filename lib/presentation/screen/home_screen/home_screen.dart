@@ -1,9 +1,10 @@
-import 'package:d_tt_nl_code_test/presentation/screen/home_screen/row_icon_text.dart';
+import 'package:d_tt_nl_code_test/presentation/route/app_route_name.dart';
+import 'package:d_tt_nl_code_test/presentation/widget/house_specification_info_with_icon.dart';
+import 'package:d_tt_nl_code_test/presentation/widget/info_widget.dart';
 import 'package:d_tt_nl_code_test/presentation/widget/custom_cache_network_image.dart';
 import 'package:d_tt_nl_code_test/presentation/widget/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../../utils/api_route.dart';
 import '../../../utils/dimens.dart';
@@ -17,11 +18,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeVm = Get.find<HomeViewModel>();
-    final textController = TextEditingController();
     return Scaffold(
       appBar: const SimpleAppBar(
         title: 'DTT REAL ESTATE',
-
       ),
       body: RefreshIndicator(
         onRefresh: () => homeVm.fetchHouseDataFromServer(),
@@ -31,9 +30,25 @@ class HomeScreen extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 )
               : homeVm.isError.isTrue
-                  ? TextView(text: homeVm.message.value)
-                  : homeVm.mHouseList.isEmpty
-                      ? TextView(text: "No House Data")
+                  ? InfoWidget(
+                      title:
+                          "Error!!!!\nSomething Gone Wrong with Internet or Server",
+                      isLottie: true,
+                      lottieFile: "assets/icons/lottie_error.json",
+                      isButton: true,
+                      onClick: () => homeVm.fetchHouseDataFromServer(),
+                      buttonText: "Try Again",
+                    )
+                  : homeVm.mHouseList.isEmpty || homeVm.isSearch.isTrue
+                      ? InfoWidget(
+                          title:
+                              "Data Not Found!!!\n There is not data found",
+
+                          image: "assets/images/empty.png",
+                          isButton: true,
+                          onClick: () => homeVm.fetchHouseDataFromServer(),
+                          buttonText: "Try Again",
+                        )
                       : Column(
                           children: [
                             const SizedBox(
@@ -42,10 +57,18 @@ class HomeScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: kPadding16),
-                              child: CustomTextFormField(
-                                textController: textController,
-                                hintText: "Search",
-                                suffixIcon: Icons.search,
+                              child: Obx(
+                                ()=>  CustomTextFormField(
+                                  textController: homeVm.textController,
+                                  hintText: "Search",
+                                  onSuffixIconClick: (){
+                                    homeVm.textController.text = "";
+                                    homeVm.isTextFormFieldEmpty.value = true;
+                                  },
+                                  suffixIcon: homeVm.isTextFormFieldEmpty.isTrue? Icons.search : Icons.clear,
+                                  onChange: homeVm.onTextFormFieldChange,
+                                  onFieldSubmitted: homeVm.onFieldSubmitted,
+                                ),
                               ),
                             ),
                             Flexible(
@@ -53,7 +76,10 @@ class HomeScreen extends StatelessWidget {
                                   itemCount: homeVm.mHouseList.length,
                                   itemBuilder: (_, position) {
                                     return GestureDetector(
-                                      onTap: () {},
+                                      onTap: () => Get.toNamed(
+                                          AppRouteName.rHouseDetail,
+                                          arguments:
+                                              homeVm.mHouseList[position]),
                                       child: Container(
                                         height: 110,
                                         margin: const EdgeInsets.only(
@@ -119,9 +145,25 @@ class HomeScreen extends StatelessWidget {
                                                       .hintColor,
                                                   fontSize: k14Font,
                                                 ),
-                                                Spacer(),
+                                                const Spacer(),
                                                 Flexible(
-                                                  child: Row(
+                                                    child:
+                                                        HouseSpecificationInfoWithIcon(
+                                                  bedrooms: homeVm
+                                                      .mHouseList[position]
+                                                      .bedrooms,
+                                                  size: homeVm
+                                                      .mHouseList[position]
+                                                      .size,
+                                                  bathrooms: homeVm
+                                                      .mHouseList[position]
+                                                      .bathrooms,
+                                                  distance: homeVm
+                                                      .mHouseList[position]
+                                                      .distance,
+                                                )
+
+                                                    /*Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .center,
@@ -151,8 +193,8 @@ class HomeScreen extends StatelessWidget {
                                                             "assets/icons/ic_location.svg",
                                                       ),
                                                     ],
-                                                  ),
-                                                )
+                                                  ),*/
+                                                    )
                                               ],
                                             ),
                                           ],
