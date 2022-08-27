@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/vos/house_vos.dart';
 import '../../../utils/dimens.dart';
 import '../../widget/house_specification_info_with_icon.dart';
 import '../../widget/text_view.dart';
@@ -7,33 +8,27 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as mylatlong;
 
 class DetailContainerWithInfo extends StatelessWidget {
-  const DetailContainerWithInfo({Key? key}) : super(key: key);
+
+  final HouseVo houseVo;
+  const DetailContainerWithInfo({Key? key, required this.houseVo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final PopupController popupController = PopupController();
 
     List<Marker> markers;
-    int pointIndex;
+
     List points = [
-      mylatlong.LatLng(-34.59220721679735, -58.41574398625528),
-      mylatlong.LatLng(49.8566, 3.3522),
+      mylatlong.LatLng(houseVo.latitude!.toDouble(), houseVo.longitude!.toDouble()),
     ];
-    pointIndex = 0;
+
     markers = [
       Marker(
         anchorPos: AnchorPos.align(AnchorAlign.center),
         height: 50,
         width: 50,
-        point: mylatlong.LatLng(-34.569579100707855, -58.4115399714689),
-        builder: (ctx) => Icon(Icons.pin_drop),
-      ),
-      Marker(
-        anchorPos: AnchorPos.align(AnchorAlign.center),
-        height: 50,
-        width: 50,
-        point: mylatlong.LatLng(-34.59220721679735, -58.41574398625528),
-        builder: (ctx) => Icon(Icons.pin_drop),
+        point: mylatlong.LatLng(houseVo.latitude!.toDouble(), houseVo.longitude!.toDouble()),
+        builder: (ctx) =>const Icon(Icons.pin_drop,color: Colors.transparent,),
       ),
     ];
 
@@ -51,21 +46,21 @@ class DetailContainerWithInfo extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children:  [
               TextView(
-                text: "\$ 450000",
+                text: "\$ ${houseVo.price}",
                 fontWeight: FontWeight.bold,
                 fontSize: k20Font,
               ),
-              SizedBox(
+            const   SizedBox(
                 width: 12,
               ),
               Flexible(
                 child: HouseSpecificationInfoWithIcon(
-                  bedrooms: 12,
-                  size: 12,
-                  bathrooms: 33,
-                  distance: 12,
+                  bedrooms: houseVo.bedrooms,
+                  size: houseVo.size,
+                  bathrooms: houseVo.bathrooms,
+                  distance: houseVo.distance,
                 ),
               )
             ],
@@ -83,9 +78,9 @@ class DetailContainerWithInfo extends StatelessWidget {
             height: kPadding18,
           ),
           TextView(
-            text: "$test",
+            text: houseVo.description??"",
             color: Theme.of(context).hintColor,
-            fontSize: k16Font,
+            fontSize: k14Font,
           ),
           const SizedBox(
             height: kPadding18,
@@ -143,7 +138,7 @@ class DetailContainerWithInfo extends StatelessWidget {
                           child: GestureDetector(
                             onTap: () => debugPrint('Popup tap!'),
                             child: Text(
-                              'Container popup for marker at TEXT HERE ${marker.point}',
+                              'LatLong Info ${marker.point}',
                             ),
                           ),
                         )),
@@ -172,5 +167,3 @@ class DetailContainerWithInfo extends StatelessWidget {
   }
 }
 
-String test =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";

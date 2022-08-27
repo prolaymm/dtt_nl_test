@@ -1,3 +1,5 @@
+import 'package:d_tt_nl_code_test/core/vos/house_vos.dart';
+import 'package:d_tt_nl_code_test/utils/api_route.dart';
 import 'package:d_tt_nl_code_test/utils/dimens.dart';
 import 'package:flutter/material.dart';
 
@@ -10,18 +12,20 @@ class HouseDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    HouseVo houseVo = Get.arguments;
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Stack(
           children: [
-            const SizedBox(
+           SizedBox(
               height: 180,
               width: double.infinity,
               child: CustomCacheNetworkImage(
                 imageUrl:
-                    "https://cdn.pixabay.com/photo/2016/08/11/23/48/mountains-1587287_960_720.jpg",
+                    apiBaseUrl+houseVo.image!,
                 height: 200,
                 radius: 0,
                 boxFit: BoxFit.cover,
@@ -41,12 +45,12 @@ class HouseDetailScreen extends StatelessWidget {
                           size: 30,
                           color: Theme.of(context).colorScheme.primaryContainer,
                         )))),
-            const Positioned(
+             Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,
                 top: 160,
-                child: DetailContainerWithInfo())
+                child: DetailContainerWithInfo(houseVo : houseVo))
           ],
         ),
       ),

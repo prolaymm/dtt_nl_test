@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utils/dimens.dart';
 
@@ -42,9 +43,11 @@ class CustomTextFormField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
             borderSide: BorderSide(color: color ?? Colors.transparent)),
-        suffixIcon: suffixIcon!=null? GestureDetector(
-            onTap: onSuffixIconClick,
-            child: Icon(suffixIcon,color: Theme.of(context).colorScheme.onPrimary,size: 30,)) : const  SizedBox()
+        suffixIcon: suffixIcon!=null?
+           GestureDetector(
+              onTap: onSuffixIconClick,
+              child: Icon(suffixIcon,color: Theme.of(context).colorScheme.onPrimary,size: 30,))
+         : const  SizedBox()
       ),
       onChanged: onChange,
     );

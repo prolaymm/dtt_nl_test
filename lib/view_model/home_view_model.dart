@@ -2,16 +2,19 @@ import 'package:d_tt_nl_code_test/core/services/api_result.dart';
 import 'package:d_tt_nl_code_test/core/services/api_status.dart';
 import 'package:d_tt_nl_code_test/core/vos/house_vos.dart';
 import 'package:d_tt_nl_code_test/data/repo/impl/house_repo_impl.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeViewModel extends GetxController {
   RxList<HouseVo> mHouseList = RxList();
-
+  final TextEditingController textController = TextEditingController();
   final _houseRepo = HouseRepoImpl();
 
   RxBool isLoading = false.obs;
   RxBool isError = false.obs;
   RxString message = "".obs;
+
+  RxBool isTextFormFieldEmpty = true.obs;
 
 
 
@@ -46,4 +49,23 @@ class HomeViewModel extends GetxController {
       message.value = "Something gone Wrong with Server or Interner";
     }
   }
+
+   onTextFormFieldChange(String?value) {
+
+    if(value !=null || value!="") {
+      isTextFormFieldEmpty.value = false;
+
+    } else {
+
+      isTextFormFieldEmpty.value = true;
+    }
+
+   }
+   @override
+  void dispose() {
+    // TODO: implement dispose
+     textController.dispose();
+    super.dispose();
+  }
+
 }

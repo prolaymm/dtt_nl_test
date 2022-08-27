@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       getPages: RegisterPageRoute().getPages,
-     initialRoute: AppRouteName.rHome,
+     initialRoute: AppRouteName.rINITIAL,
 
     );
   }

@@ -15,6 +15,7 @@ class AppTheme {
     scaffoldBackgroundColor: cScaffoldBackground,
     backgroundColor: Colors.white,
     shadowColor:  cShadowColor,
+    errorColor: const  Color(0xffFF0000),
     appBarTheme: const AppBarTheme(
       color: cScaffoldBackground,
       titleTextStyle: TextStyle(color: Colors.black),
