@@ -34,6 +34,8 @@ class HomeViewModel extends GetxController {
       if (apiResult.statusType == StatusType.eComplete) {
         mHouseList.value = apiResult.data;
 
+        mHouseList.sort((price1, price2) => price1.price!.compareTo(price2.price!));
+
         isError.value = false;
         message.value = "Success";
       } else {
